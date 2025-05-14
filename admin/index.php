@@ -107,6 +107,12 @@ if ($result) {
             text-align: center;
             margin-top: 20px;
         }
+
+        .home-button-container {
+            text-align: center; 
+            margin-top: 20px;
+            color: #4CAF50;
+        }
     </style>
 </head>
 <body>
@@ -142,6 +148,10 @@ if ($result) {
                 <?php endforeach; ?>
             </tbody>
         </table>
+        
+        <div class="home-button-container">
+            <a href="../index.php" class="home-button">Go To Home</a>
+        </div>
     </div>
 </body>
 </html>

@@ -64,6 +64,19 @@ if ($result) {
         tr:hover {
             background-color: #f1f1f1;
         }
+        .home-button-container {
+            text-align: center; 
+            margin-top: 20px;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -90,5 +103,8 @@ if ($result) {
             <?php endforeach; ?>
         </tbody>
     </table>
+    <div class="home-button-container">
+            <a href="../index.php" class="home-button">Go To Home</a>
+        </div>
 </body>
 </html>
