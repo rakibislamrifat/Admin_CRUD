@@ -1,9 +1,16 @@
 <?php
 session_start();
 require '../config/db.php';
+// load user from database
+$user = $_SESSION['user'];
 
 if (!isset($conn)) {
     die("Database connection failed");
+}
+
+if (!isset($_SESSION['user'])) {
+    header("Location: ../auth/login.php");
+    exit;
 }
 
 // Fetch all orders from the database using MySQLi
@@ -18,9 +25,15 @@ if ($result) {
 } else {
     die("Query failed: " . mysqli_error($conn));
 }
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +46,25 @@ if ($result) {
             padding: 0;
             background-color: #f4f4f4;
         }
+        .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .logout-button {
+        background-color: #e74c3c;
+        color: white;
+        padding: 8px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+        background-color: #c0392b;
+    }
 
         h1 {
             text-align: center;
@@ -47,7 +79,8 @@ if ($result) {
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px;
             text-align: center;
             border: 1px solid #ddd;
@@ -109,15 +142,19 @@ if ($result) {
         }
 
         .home-button-container {
-            text-align: center; 
+            text-align: center;
             margin-top: 20px;
             color: #4CAF50;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Admin Dashboard</h1>
+        <div class="top-bar">
+            <h1>Admin Dashboard</h1>
+            <a href="../auth/logout.php" class="logout-button">Logout</a>
+        </div>
         <div class="add-new">
             <a href="create.php" class="actions">+ Add New Order</a>
         </div>
@@ -134,24 +171,27 @@ if ($result) {
             </thead>
             <tbody>
                 <?php foreach ($orders as $order): ?>
-                <tr>
-                    <td><?= $order['id'] ?></td>
-                    <td><img src="../uploads/<?= $order['image'] ?>" alt="<?= htmlspecialchars($order['order_name']) ?>"></td>
-                    <td><?= htmlspecialchars($order['order_name']) ?></td>
-                    <td><?= $order['quantity'] ?></td>
-                    <td>$<?= number_format($order['price'], 2) ?></td>
-                    <td class="actions">
-                        <a href="edit.php?id=<?= $order['id'] ?>">Edit</a>
-                        <a href="delete.php?id=<?= $order['id'] ?>" onclick="return confirm('Delete this order?')">Delete</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><?= $order['id'] ?></td>
+                        <td><img src="../uploads/<?= $order['image'] ?>"
+                                alt="<?= htmlspecialchars($order['order_name']) ?>"></td>
+                        <td><?= htmlspecialchars($order['order_name']) ?></td>
+                        <td><?= $order['quantity'] ?></td>
+                        <td>$<?= number_format($order['price'], 2) ?></td>
+                        <td class="actions">
+                            <a href="edit.php?id=<?= $order['id'] ?>">Edit</a>
+                            <a href="delete.php?id=<?= $order['id'] ?>"
+                                onclick="return confirm('Delete this order?')">Delete</a>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-        
+
         <div class="home-button-container">
             <a href="../index.php" class="home-button">Go To Home</a>
         </div>
     </div>
 </body>
+
 </html>

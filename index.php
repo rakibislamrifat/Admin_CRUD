@@ -1,9 +1,18 @@
+<?php
+session_start();
+// load user from database
+$user = $_SESSION['user'] ?? null;
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+    <title>Admin CRUD Operation</title>
     <link rel="stylesheet" href="assets/style.css">
     <style>
         body {
@@ -55,12 +64,12 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the Order Management System</h1>
-        <div class="links">
-            <p><a href="admin/index.php">Go to Admin Panel</a></p>
-            <p><a href="user/index.php">View Orders as User</a></p>
-        </div>
+<div class="container">
+    <h1>Welcome to the Order Management System</h1>
+    <div class="links">
+        <p><a <?php if($user) { ?> href="admin/index.php" <?php } else { ?> href="auth/login.php" <?php } ?>>Go to Admin Panel</a></p>
+        <p><a href="user/index.php">View Orders as User</a></p>
     </div>
+</div>
 </body>
 </html>

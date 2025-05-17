@@ -6,12 +6,12 @@ $id = $_GET['id'];
 // Use MySQLi query to get the order details
 $query = "SELECT * FROM orders WHERE id = ?";
 $stmt = mysqli_prepare($conn, $query);
-mysqli_stmt_bind_param($stmt, 'i', $id); // 'i' stands for integer
+mysqli_stmt_bind_param($stmt, 'i', $id); 
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $order = mysqli_fetch_assoc($result);
 
-if (isset($_POST['submit'])) {  // Check if the form is submitted
+if (isset($_POST['submit'])) {  
     $order_name = $_POST['order_name'];
     $quantity = $_POST['quantity'];
     $price = $_POST['price'];
