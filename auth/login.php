@@ -175,7 +175,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'], $_POST['passw
 </div>
 
 <footer>
-    <p>&copy; <?= date("Y"); ?> Your Website. All rights reserved.</p>
+    <p>&copy; <?= date("Y"); ?> Your Website. All rights reserved by Rifat.</p>
 </footer>
 
 </body>
